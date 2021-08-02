@@ -14,23 +14,29 @@ public class Funcoes {
 		int ultimoprimo = 1;
 		boolean verPrimo = false;
 		if (x > y) {
+			// verifica se o valor inicial é maior que valor limite
 			System.out.println("o primeiro numero não pode ser maior que o segundo");
 
 		} else {
 
 			for (int i = x; i <= y; i++) {
 				if (i == 2) {
+					// unico numero par primo
 					ultimoprimo = i;
 				} else {
 					if (i % 2 == 0) {
 					} else {
 						if (i != 1) {
+							// inicia os calculos para verificar
+							// os numeros primos
 							for (int j = 2; j < i; j++) {
-								// System.out.println(i % j);
+								// se o resto da divisão for zero indica que é divisivel por outro numero
+								// além do próprio numero e o numero 1
 								if (i % j == 0 && verPrimo == false) {
 									verPrimo = true;
 								}
 							}
+							// verifica se ocorreu alguma divisão
 							if (verPrimo == false) {
 								ultimoprimo = i;
 							}
@@ -49,8 +55,9 @@ public class Funcoes {
 	public void criptografia(String texto) throws Exception {
 		System.out.println("_______________ MODULO PARA CRIPTOGRAFIA_______________");
 		System.out.println("palavra a ser criptografada: " + texto);
+		// transforma string em array
 		char[] caracteres = texto.toCharArray();
-
+		// mapea o alfabeto
 		Map<Integer, String> alfabeto = new HashMap<Integer, String>();
 		int i = 1;
 		for (char a = 'a'; a <= 'z'; a++) {
@@ -60,6 +67,7 @@ public class Funcoes {
 		String textoCriptografado = "";
 		String textoDescriptografado = "";
 		int indiceSelecionado = 0;
+		// criptografa o texto
 		for (char c : caracteres) {
 			for (Entry<Integer, String> saida : alfabeto.entrySet()) {
 				if (saida.getValue().equals(String.valueOf(c))) {
@@ -71,6 +79,8 @@ public class Funcoes {
 			}
 		}
 		System.out.println("texto criptografado: " + textoCriptografado);
+		
+		// descriptografa o texto
 		char caracter[] = textoCriptografado.toCharArray();
 
 		for (char c : caracter) {
@@ -91,7 +101,7 @@ public class Funcoes {
 	// Função para realizar o calculo fibonacci
 	public void fibonacci(int fibonacci) throws Exception {
 		System.out.println("_______________ MODULO PARA SEQUENCIA DE FIBONACCI_______________");
-		
+		// mapeia os dados (fora do escopo)
 		Map<Integer, Integer> mapeamentoDados = new HashMap<Integer, Integer>();
 		System.out.println(0);
 		int atual = 0;
@@ -100,17 +110,26 @@ public class Funcoes {
 		int cont = 1;
 		Runtime runtime = Runtime.getRuntime();
 		while (cont <= fibonacci) {
+			// este foi o limite de memória que o meu computador atigiu 
+			// antes do erro de buffer memory 240616
+
+//			Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+			// utilizei o numero natural 100000000 com oito zeros
 			if(runtime.freeMemory() < 240616) {
-				System.out.println("parou automaticamente");
+				System.out.println("parou automaticamente por estouro de memória");
 				break;
 			}
+			// itera  ate a variavel fibonacci
+			// realiza o calculo fibonacci
 			antepenultimo = penultimo;
 			penultimo = atual;
 			atual = atual == 0 ? cont : penultimo + antepenultimo;
-			System.out.println(cont+"/"+atual+"/"+runtime.freeMemory());
+			System.out.println(atual);
+			// fora do escopo
 			mapeamentoDados.put(cont, atual);
 			cont++;
 		}
+		// fora do escopo
 		System.out.println(mapeamentoDados.get(fibonacci));
 	}
 }
